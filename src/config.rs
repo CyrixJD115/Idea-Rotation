@@ -280,11 +280,75 @@ impl Default for Config {
                         ("Atlas", "Maps, regions, the lay of the land"),
                     ],
                 ),
+                ns(
+                    "cosmos",
+                    "Cosmos",
+                    "The cosmic backdrop the world sits in.",
+                    &[
+                        ("Nebula", "Glowing dust cloud, a nursery of stars"),
+                        ("Galaxy", "A hundred billion suns on a slow spin"),
+                        ("Void", "The dark between stars, nothing for light-years"),
+                        ("Supernova", "A star's last, brightest act"),
+                        ("Pulsar", "A lighthouse of radiation sweeping the dark"),
+                        ("Black Hole", "Gravity that eats light itself"),
+                        ("Star Cluster", "A jewel-box swarm of young suns"),
+                        ("Aurora", "Skies that ripple with charged light"),
+                    ],
+                ),
+                ns(
+                    "planet",
+                    "Planets",
+                    "World types to land on, No Man's Sky style.",
+                    &[
+                        ("Rainforest", "Dense canopy, the constant drum of rain"),
+                        ("Lava", "Molten veins, ember storms, basalt plains"),
+                        ("Windy", "Gale-scoured plains, wind-carved arches"),
+                        ("Frozen", "Kilometer-deep ice under aurora-lit nights"),
+                        ("Toxic", "Acid pools, spore forests, rust fog"),
+                        ("Irradiated", "Crackling dunes beneath a hostile sun"),
+                        ("Scorched", "Heat mirages on glass flats, fire storms"),
+                        ("Ocean", "Endless swells over drowned ruins"),
+                        ("Exotic", "Where the rules of nature politely bend"),
+                        ("Barren", "Dead rock, silent craters, thin dust"),
+                    ],
+                ),
+                ns(
+                    "phenomenon",
+                    "Phenomenon",
+                    "Strange events sweeping the world or sky.",
+                    &[
+                        ("Solar Flare", "The sun exhales fire"),
+                        ("Gravity Storm", "Weight becomes a suggestion"),
+                        ("Crystal Rain", "Shards drift down, singing as they land"),
+                        ("Eclipse", "A staged, unnatural dusk"),
+                        ("Magnetar Pulse", "Every compass on the planet spins"),
+                        ("Dimensional Rift", "A tear in the sky with weather of its own"),
+                        ("Sentinel Surge", "The watchers all wake at once"),
+                        ("Plasma Bloom", "Ionized flowers of light opening at dusk"),
+                    ],
+                ),
             ],
-            presets: vec![Preset {
-                name: "Everything".into(),
-                enabled: vec!["style".into(), "subject".into(), "format".into()],
-            }],
+            presets: vec![
+                Preset {
+                    name: "Everything".into(),
+                    enabled: vec![
+                        "style".into(),
+                        "subject".into(),
+                        "format".into(),
+                        "cosmos".into(),
+                        "planet".into(),
+                        "phenomenon".into(),
+                    ],
+                },
+                Preset {
+                    name: "Cosmos".into(),
+                    enabled: vec![
+                        "cosmos".into(),
+                        "planet".into(),
+                        "phenomenon".into(),
+                    ],
+                },
+            ],
             patterns: vec![
                 Pattern {
                     name: "Clean Pair".into(),
@@ -305,6 +369,22 @@ impl Default for Config {
                 Pattern {
                     name: "The Something".into(),
                     template: "The {style} {subject}".into(),
+                },
+                Pattern {
+                    name: "Worlds".into(),
+                    template: "{planet} {phenomenon}".into(),
+                },
+                Pattern {
+                    name: "Orbit".into(),
+                    template: "{planet} of the {cosmos}".into(),
+                },
+                Pattern {
+                    name: "Deep Space".into(),
+                    template: "{cosmos} {planet} {phenomenon}".into(),
+                },
+                Pattern {
+                    name: "Survey".into(),
+                    template: "the {planet.lower} {phenomenon.lower} survey".into(),
                 },
             ],
         }
