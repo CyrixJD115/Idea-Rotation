@@ -457,6 +457,9 @@ fn generate_tab(state: &App) -> Element<'_, Message> {
             Message::PatternSelected,
         )
         .padding([6, 9])
+        .font(MEDIUM)
+        .style(ui::pick_list_style)
+        .menu_style(ui::pick_list_menu)
         .width(Length::Fixed(150.0)),
         button(text("Generate").size(12.5).font(MEDIUM))
             .on_press(Message::Generate)

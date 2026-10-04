@@ -1,6 +1,6 @@
 //! Dark theme with a blue accent — quiet surfaces, soft borders, one accent.
 
-use iced::widget::{button, container, text_input};
+use iced::widget::{button, container, overlay, pick_list, text_input};
 use iced::{theme, Background, Border, Color, Theme};
 
 // -- palette ---------------------------------------------------------------
@@ -200,5 +200,38 @@ pub fn field(_t: &Theme, status: text_input::Status) -> text_input::Style {
         placeholder: Color::from_rgb(0.42, 0.46, 0.53),
         value: TEXT,
         selection: accent_alpha(0.35),
+    }
+}
+
+// -- pick list (pattern dropdown) ----------------------------------------------
+
+/// Closed dropdown: same surface as the input fields, accent ring on hover.
+pub fn pick_list_style(_t: &Theme, status: pick_list::Status) -> pick_list::Style {
+    let hovered = matches!(status, pick_list::Status::Hovered);
+    pick_list::Style {
+        text_color: if hovered { TEXT } else { DIM },
+        placeholder_color: Color::from_rgb(0.42, 0.46, 0.53),
+        handle_color: if hovered { ACCENT_BRIGHT } else { DIM },
+        background: Background::Color(SURFACE_2),
+        border: Border {
+            width: 1.0,
+            radius: 9.0.into(),
+            color: if hovered { ACCENT } else { BORDER },
+        },
+    }
+}
+
+/// Open dropdown menu: elevated surface, accent-highlighted hovered option.
+pub fn pick_list_menu(_t: &Theme) -> overlay::menu::Style {
+    overlay::menu::Style {
+        background: Background::Color(SURFACE),
+        border: Border {
+            width: 1.0,
+            radius: 10.0.into(),
+            color: BORDER,
+        },
+        text_color: DIM,
+        selected_text_color: ACCENT_BRIGHT,
+        selected_background: Background::Color(SURFACE_2),
     }
 }

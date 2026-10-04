@@ -471,7 +471,13 @@ mod tests {
     use std::path::PathBuf;
 
     fn tmp_config() -> PathBuf {
-        let dir = std::env::temp_dir().join(format!("idea-rotation-test-{}", std::process::id()));
+        // unique per test: tests run on parallel threads and must not share
+        // a config file (a shared one gets clobbered mid-assertion)
+        let dir = std::env::temp_dir().join(format!(
+            "idea-rotation-test-{}-{:?}",
+            std::process::id(),
+            std::thread::current().id()
+        ));
         let _ = std::fs::create_dir_all(&dir);
         let path = dir.join("config.toml");
         Config::default().save(&path).unwrap();
