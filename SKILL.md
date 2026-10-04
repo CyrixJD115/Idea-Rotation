@@ -1,13 +1,12 @@
 ---
 name: idea-rotation
 description: Config-driven idea & name generator — synthesizes seamless names ("Godslaying Crow of the Ashen Mire") from user-defined word pools and naming patterns. Use when brainstorming names, project ideas, game assets, or themed combinations from a TOML config. Runnable as GUI, CLI, or MCP server.
-version: 1.1.0
+version: 1.2.0
 ---
 
 # Idea Rotation
 
-One binary, three interfaces — all driven by a single `config.toml` sitting
-next to the executable:
+One binary, three interfaces — all driven by a single `config.toml`:
 
 | Command | What it does |
 |---|---|
@@ -19,7 +18,10 @@ next to the executable:
 | `idea-rotation path` | prints which config path is being used |
 
 Config resolution order: `--config PATH` → `$IDEA_ROTATION_CONFIG` →
-`config.toml` beside the executable → `./config.toml`.
+`config.toml` next to the AppImage (Linux) → `config.toml` beside the
+executable → `~/.config/idea-rotation/config.toml`
+(or `%APPDATA%\idea-rotation\config.toml` on Windows) → `./config.toml`.
+Run `idea-rotation path` to see which one is live; the GUI footer shows it too.
 
 ## How naming works
 
@@ -100,13 +102,14 @@ patterns that need missing namespaces are skipped or error if explicit).
 
 ## MCP usage (AI agents)
 
-Register as a stdio MCP server:
+Register as a stdio MCP server (replace the path with wherever the binary
+was installed — see [install.md](install.md)):
 
 ```json
 {
   "mcpServers": {
     "idea-rotation": {
-      "command": "/absolute/path/to/Idea-Rotation/idea-rotation",
+      "command": "/absolute/path/to/idea-rotation",
       "args": ["mcp"]
     }
   }
@@ -144,6 +147,15 @@ immediately without restarting the server.
 3. Missing a pool? `add_namespace` + `add_option` to build it, then
    generate again referencing it in an ad-hoc pattern.
 4. `get_config` → hand the user the full picture.
+
+## GUI quick tour
+
+- **Generate** — roll names; pin a pattern with the dropdown, seed for
+  repeatable results, copy any name to the clipboard.
+- **Namespaces** — add/rename/delete word pools, toggle them in/out of the
+  mix, edit every word and its description inline.
+- **Presets** — save which namespaces are enabled as a named mix; apply it
+  later in one click.
 
 ## Building from source
 

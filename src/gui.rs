@@ -112,11 +112,14 @@ impl App {
                 Some(format!("{e} — loaded built-in defaults; Save writes the file")),
             ),
         };
+        // open with a fresh roll on screen — never an empty app
+        let ideas =
+            engine::generate(&config, config.settings.count, None, None, None).unwrap_or_default();
         App {
             selected_ns: (!config.namespaces.is_empty()).then_some(0),
             path,
             config,
-            ideas: Vec::new(),
+            ideas,
             seed: String::new(),
             pattern_choice: "auto".into(),
             tab: Tab::Generate,

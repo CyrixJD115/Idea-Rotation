@@ -42,18 +42,31 @@ COMMANDS:
     path                       print the config path in use
     help                       this text
 
-CONFIG:  --config PATH | $IDEA_ROTATION_CONFIG | <exe dir>/config.toml | ./config.toml
+CONFIG:  --config PATH | $IDEA_ROTATION_CONFIG | next to the AppImage / exe |
+         ~/.config/idea-rotation/ (or %APPDATA%/idea-rotation/) | ./config.toml
 ";
 
 fn config_path(explicit: Option<PathBuf>) -> PathBuf {
+    // 1. explicit --config wins
     if let Some(p) = explicit {
         return p;
     }
+    // 2. environment override
     if let Ok(p) = std::env::var("IDEA_ROTATION_CONFIG") {
         if !p.trim().is_empty() {
             return PathBuf::from(p);
         }
     }
+    // 3. portable: config.toml next to the AppImage file itself
+    //    (the mount point beside the binary is read-only)
+    if let Ok(appimage) = std::env::var("APPIMAGE") {
+        if let Some(p) = PathBuf::from(&appimage).parent().map(|d| d.join("config.toml")) {
+            if p.exists() {
+                return p;
+            }
+        }
+    }
+    // 4. portable: config.toml beside the executable (release bundles)
     let beside_exe = std::env::current_exe()
         .ok()
         .and_then(|e| e.parent().map(|d| d.join("config.toml")));
@@ -62,7 +75,36 @@ fn config_path(explicit: Option<PathBuf>) -> PathBuf {
             return p;
         }
     }
+    // 5./6. per-user config home (binary installed on PATH); fresh installs
+    // write there instead of littering whatever cwd they were launched from
+    if let Some(home) = user_config_path() {
+        return home;
+    }
     PathBuf::from("config.toml")
+}
+
+/// ~/.config/idea-rotation/config.toml (Linux/macOS) or
+/// %APPDATA%\idea-rotation\config.toml (Windows). Creates the directory.
+fn user_config_path() -> Option<PathBuf> {
+    #[cfg(windows)]
+    {
+        std::env::var("APPDATA").ok().map(|d| {
+            let p = PathBuf::from(d).join("idea-rotation");
+            let _ = std::fs::create_dir_all(&p);
+            p.join("config.toml")
+        })
+    }
+    #[cfg(not(windows))]
+    {
+        let base = std::env::var("XDG_CONFIG_HOME")
+            .ok()
+            .filter(|s| !s.trim().is_empty())
+            .map(PathBuf::from)
+            .or_else(|| std::env::var("HOME").ok().map(|h| PathBuf::from(h).join(".config")))?;
+        let p = base.join("idea-rotation");
+        let _ = std::fs::create_dir_all(&p);
+        Some(p.join("config.toml"))
+    }
 }
 
 fn main() -> ExitCode {
