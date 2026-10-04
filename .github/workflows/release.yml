@@ -191,4 +191,4 @@ jobs:
             | `Idea-Rotation-macos-x64.zip` | macOS Intel (`.app`) |
 
             Every archive ships with `config.toml` + `SKILL.md`.
-            Setup steps for agents and humans: [`install.md`](https://github.com/CyrixJD115/Idea-Rotation/blob/main/install.md)
+            Setup steps for agents and humans: [`install.md`](https://github.com/CyrixJD115/Idea-Rotation/blob/main/INSTALL.md)

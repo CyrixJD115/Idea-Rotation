@@ -103,7 +103,7 @@ patterns that need missing namespaces are skipped or error if explicit).
 ## MCP usage (AI agents)
 
 Register as a stdio MCP server (replace the path with wherever the binary
-was installed — see [install.md](install.md)):
+was installed — see [INSTALL.md](INSTALL.md)):
 
 ```json
 {

@@ -20,7 +20,11 @@
 
 ## For AI agents
 
-> Install or upgrade Idea Rotation to the latest release: download the archive for this OS from https://github.com/CyrixJD115/Idea-Rotation/releases/latest (Windows `*-windows-x64.zip`, Linux `*-linux-x86_64.tar.gz`, macOS `*-macos-*.zip` matching this machine's arch), extract it, run `idea-rotation init` to create `config.toml`, and verify with `idea-rotation generate --count 2`. Register the MCP server with `idea-rotation mcp` per https://github.com/CyrixJD115/Idea-Rotation/blob/main/install.md#4-register-the-mcp-server, then read SKILL.md in the archive for tool usage. If setup or connection fails, follow https://github.com/CyrixJD115/Idea-Rotation/blob/main/install.md.
+Copy this prompt into your agent:
+
+```text
+Install or upgrade Idea Rotation to the latest release: download the archive for this OS from https://github.com/CyrixJD115/Idea-Rotation/releases/latest (Windows `*-windows-x64.zip`, Linux `*-linux-x86_64.tar.gz`, macOS `*-macos-*.zip` matching this machine's arch), extract it, run `idea-rotation init` to create `config.toml`, and verify with `idea-rotation generate --count 2`. Register the MCP server with `idea-rotation mcp` per https://github.com/CyrixJD115/Idea-Rotation/blob/main/INSTALL.md#4-register-the-mcp-server, then read SKILL.md in the archive for tool usage. If setup or connection fails, follow https://github.com/CyrixJD115/Idea-Rotation/blob/main/INSTALL.md.
+```
 
 ## What it is
 
@@ -67,7 +71,7 @@ idea-rotation               # open the GUI
 ```
 
 Full step-by-step (all OSes, MCP registration, troubleshooting):
-**[install.md](install.md)** · Agent/usage reference: **[SKILL.md](SKILL.md)**
+**[INSTALL.md](INSTALL.md)** · Agent/usage reference: **[SKILL.md](SKILL.md)**
 
 ## Config
 
