@@ -1,0 +1,26 @@
+[package]
+name = "idea-rotation"
+version = "1.1.0"
+edition = "2021"
+description = "Config-driven idea & name generator with an Iced GUI and MCP server"
+license = "GPL-3.0"
+
+[[bin]]
+name = "idea-rotation"
+path = "src/main.rs"
+
+[dependencies]
+iced = { version = "0.13", features = ["tokio"] }
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+serde_json = "1"
+rand = "0.8"
+png = "0.17"
+
+[dev-dependencies]
+
+[profile.release]
+lto = true
+strip = true
+opt-level = "s"
+codegen-units = 1
