@@ -1,7 +1,7 @@
 ---
 name: idea-rotation
 description: Config-driven idea & name generator — synthesizes seamless names ("Godslaying Crow of the Ashen Mire") from user-defined word pools and naming patterns. Use when brainstorming names, project ideas, game assets, or themed combinations from a TOML config. Runnable as GUI, CLI, or MCP server.
-version: 1.2.4
+version: 1.2.2
 ---
 
 # Idea Rotation
