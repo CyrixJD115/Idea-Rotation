@@ -178,50 +178,26 @@ jobs:
           fail_on_unmatched_files: true
           generate_release_notes: true
           body: |
-            Config-driven idea & name generator — define **word pools** and
-            **naming patterns** in one TOML file, and the engine fuses picks
-            into finished names (*"the Playful Garden of Obsidian Journal"*,
-            *"CyberBakery"*) instead of gluing words with `+`. Seeded runs are
+            Config-driven name & idea generator — word pools + naming patterns
+            in one TOML file, fused into seamless names
+            (*"the Playful Garden of Obsidian Journal"*). Seeded runs are
             reproducible everywhere.
 
-            **One binary, three faces** — point every interface at the same
-            `config.toml` and they stay in sync:
+            **One binary, three faces** — **GUI** (just run it) · **CLI**
+            (`idea-rotation generate --pattern "Of The"`) · **MCP server**
+            (`idea-rotation mcp`, read + write tools for AI agents).
 
-            | Interface | How to use it |
+            | Asset | Platform |
             |---|---|
-            | **GUI** | just run the binary — dark, compact, everything editable in-app |
-            | **CLI** | `idea-rotation generate --pattern "Of The" --seed retro --count 5` |
-            | **MCP server** | `idea-rotation mcp` — stdio JSON-RPC; agents can read *and write* the config |
+            | `Idea-Rotation-windows-x64.zip` | Windows 10+ x64 |
+            | `Idea-Rotation-linux-x86_64.tar.gz` | Linux x86-64 (glibc ≥ 2.35) |
+            | `Idea-Rotation-linux-x86_64.AppImage` | Linux x86-64 (double-click GUI) |
+            | `Idea-Rotation-macos-arm64.zip` | macOS 11+ Apple Silicon |
+            | `Idea-Rotation-macos-x64.zip` | macOS 11+ Intel |
 
-            ### Downloads
+            Every archive ships `config.toml` + `SKILL.md`; the macOS zip
+            contains a proper **`Idea Rotation.app`** (unsigned — right-click
+            → Open on first launch).
 
-            | Asset | Platform | Best for |
-            |---|---|---|
-            | `Idea-Rotation-windows-x64.zip` | Windows 10+ x64 | CLI / MCP / GUI |
-            | `Idea-Rotation-linux-x86_64.tar.gz` | Linux x86-64 (glibc ≥ 2.35) | servers, agents, scripting |
-            | `Idea-Rotation-linux-x86_64.AppImage` | Linux x86-64 | double-click GUI |
-            | `Idea-Rotation-macos-arm64.zip` | macOS 11+ Apple Silicon | native GUI + CLI |
-            | `Idea-Rotation-macos-x64.zip` | macOS 11+ Intel | native GUI + CLI |
-
-            Every archive ships with `config.toml`, `SKILL.md` (full agent
-            reference), and `icon.png`. The macOS zip contains a proper
-            **`Idea Rotation.app`** — right-click → Open on first launch
-            (builds are unsigned).
-
-            ### 60-second start
-
-            ```sh
-            idea-rotation init            # create config.toml
-            idea-rotation generate        # roll your first names
-            idea-rotation                 # open the GUI
-            ```
-
-            For agents: add the binary as a stdio MCP server
-            (`command: "<path>/idea-rotation", args: ["mcp"]`) — tools:
-            `generate_ideas`, `list_namespaces`, `get_config`, plus
-            `add_namespace` / `add_option` / `set_namespace_enabled` to build
-            word pools from a chat.
-
-            Full setup per OS, MCP registration, and troubleshooting:
-            **[INSTALL.md](https://github.com/CyrixJD115/Idea-Rotation/blob/main/INSTALL.md)** ·
-            Usage & config reference: **[SKILL.md](https://github.com/CyrixJD115/Idea-Rotation/blob/main/SKILL.md)**
+            Setup & MCP registration: **[INSTALL.md](https://github.com/CyrixJD115/Idea-Rotation/blob/main/INSTALL.md)** ·
+            Usage reference: **[SKILL.md](https://github.com/CyrixJD115/Idea-Rotation/blob/main/SKILL.md)**
